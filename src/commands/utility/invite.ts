@@ -14,7 +14,7 @@ export class Invite extends Command {
     await interaction.reply({ embeds: [new EmbedBuilder()
       .setColor(0x5865f2)
       .setTitle('invite goob')
-      .setDescription(`[click here to add me to your server](${link})`)
+      .setDescription(`[click here to add me to your server :3](${link})`)
       .setFooter({ text: 'thanks for using goob' })] });
   }
 }

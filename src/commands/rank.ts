@@ -26,7 +26,7 @@ export class Rank extends Command {
     const u = interaction.user.username;
     
     if(r === 'bronze' || r === 'iron'){
-      await interaction.reply(`${u} is ${r}, time to grind 💪`);
+      await interaction.reply(`${u} is ${r}, time to grind man`);
     }else{
       await interaction.reply(`${u} is ${r}, escaped bronze`);
     }

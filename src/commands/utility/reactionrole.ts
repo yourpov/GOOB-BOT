@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, StringSelectMenuBuilder } from 'discord.js';
 import { Command } from '../base';
-import * as fs from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
 
 export class ReactionRole extends Command {
@@ -45,9 +45,10 @@ export class ReactionRole extends Command {
         ]);
 
       const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select);
-      const msg = await interaction.reply({ embeds: [embed], components: [row], fetchReply: true });
+      await interaction.reply({ embeds: [embed], components: [row] });
+      const msg = await interaction.fetchReply();
 
-      this.saveRoleMessage(msg.id, 'rank');
+      await this.saveRoleMessage(msg.id, 'rank');
     }else{
       const embed = new EmbedBuilder()
         .setColor(0xff69b4)
@@ -74,17 +75,32 @@ export class ReactionRole extends Command {
         ]);
 
       const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select);
-      const msg = await interaction.reply({ embeds: [embed], components: [row], fetchReply: true });
+      await interaction.reply({ embeds: [embed], components: [row] });
+      const msg = await interaction.fetchReply();
 
-      this.saveRoleMessage(msg.id, 'color');
+      await this.saveRoleMessage(msg.id, 'color');
     }
   }
 
-  private saveRoleMessage(msgId: string, type: string){
-    const p = path.join(__dirname, '../../..', 'data', 'roles.json');
-    const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+  private async saveRoleMessage(msgId: string, type: string){
+    const dir = path.join(__dirname, '../../..', 'data');
+    const p = path.join(dir, 'roles.json');
+
+    let data: { lastUpdated: string; messages: Record<string, string> } = { lastUpdated: '', messages: {} };
+    try {
+      data = JSON.parse(await fs.readFile(p, 'utf8'));
+      if (!data.messages) data.messages = {};
+    } catch {
+    }
+
     data.messages[msgId] = type;
     data.lastUpdated = new Date().toISOString();
-    fs.writeFileSync(p, JSON.stringify(data, null, 2));
+
+    try {
+      await fs.mkdir(dir, { recursive: true });
+      await fs.writeFile(p, JSON.stringify(data, null, 2));
+    } catch (err) {
+      console.error('[reactionrole] failed to save roles.json', err);
+    }
   }
 }

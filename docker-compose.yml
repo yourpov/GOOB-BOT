@@ -1,0 +1,7 @@
+services:
+  goob:
+    build: .
+    restart: unless-stopped   # auto-restarts on crash and on host reboot
+    env_file: .env            # DISCORD_TOKEN, role IDs, QOTD_CHANNEL, etc.
+    volumes:
+      - ./data:/app/data      # persists data/roles.json across restarts

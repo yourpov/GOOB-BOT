@@ -32,7 +32,7 @@ export class Setup extends Command {
         '`/rank` - show your rank\n\n' +
         'im basically your training buddy to help you get out of low elo\n\n' +
         'lmk if you need anything just type / and see all my commands\n\n' +
-        'i was made by my pookie <@1055337846657007648> <3'
+        'i was made by my pookie <@1470172610636808425> <3'
       )] });
   }
 }

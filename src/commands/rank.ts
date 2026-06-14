@@ -18,6 +18,9 @@ export class Rank extends Command {
           { name: 'Gold', value: 'gold' },
           { name: 'Platinum', value: 'platinum' },
           { name: 'Diamond', value: 'diamond' },
+          { name: 'Ascendant', value: 'ascendant' },
+          { name: 'Immortal', value: 'immortal' },
+          { name: 'Radiant', value: 'radiant' },
         )
     );
 

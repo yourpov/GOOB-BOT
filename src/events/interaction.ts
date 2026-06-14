@@ -1,5 +1,5 @@
 import { Bot } from '../bot';
-import { Events, Interaction } from 'discord.js';
+import { Events, Interaction, MessageFlags, InteractionReplyOptions } from 'discord.js';
 
 export class InteractionEvent {
   constructor(bot: Bot) {
@@ -13,7 +13,7 @@ export class InteractionEvent {
         await command.run(interaction);
       } catch (err) {
         console.error(`error: ${interaction.commandName}`, err);
-        const msg = { content: 'something broke', ephemeral: true };
+        const msg: InteractionReplyOptions = { content: 'something broke', flags: MessageFlags.Ephemeral };
         if(interaction.replied || interaction.deferred){
           await interaction.followUp(msg);
         }else{

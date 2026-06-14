@@ -30,7 +30,6 @@ export class Bot {
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMembers,
       ],
     });
     this.commands = new Collection();

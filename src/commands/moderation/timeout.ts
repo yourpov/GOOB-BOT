@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction,SlashCommandBuilder, PermissionFlagsBits, GuildMember } from 'discord.js';
+import { ChatInputCommandInteraction,SlashCommandBuilder, PermissionFlagsBits, GuildMember, MessageFlags } from 'discord.js';
 import { Command } from '../base';
 
 export class Timeout extends Command {
@@ -30,12 +30,12 @@ export class Timeout extends Command {
     const why = interaction.options.getString('reason') || 'no reason';
 
     if(!user){
-      await interaction.reply({ content: 'user not found', ephemeral: true });
+      await interaction.reply({ content: 'user not found', flags: MessageFlags.Ephemeral });
       return;
     }
 
     if(!user.moderatable){
-      await interaction.reply({ content: 'cant timeout this user', ephemeral: true });
+      await interaction.reply({ content: 'cant timeout this user', flags: MessageFlags.Ephemeral });
       return;
     }
 

@@ -51,7 +51,8 @@ export class Poll extends Command {
       .setDescription(desc)
       .setFooter({ text: `by ${interaction.user.username}` });
 
-    const msg = await interaction.reply({ embeds: [embed], fetchReply: true });
+    await interaction.reply({ embeds: [embed] });
+    const msg = await interaction.fetchReply();
 
     await msg.react('1️⃣');
     await msg.react('2️⃣');

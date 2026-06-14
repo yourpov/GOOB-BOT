@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits, GuildMember } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits, GuildMember, MessageFlags } from 'discord.js';
 import { Command } from '../base';
 
 export class Kick extends Command {
@@ -24,12 +24,12 @@ export class Kick extends Command {
     const why = interaction.options.getString('reason') || 'no reason';
 
     if(!user){
-      await interaction.reply({ content: 'user not found', ephemeral: true });
+      await interaction.reply({ content: 'user not found', flags: MessageFlags.Ephemeral });
       return;
     }
 
     if(!user.kickable){
-      await interaction.reply({ content: 'cant kick this user', ephemeral: true });
+      await interaction.reply({ content: 'cant kick this user', flags: MessageFlags.Ephemeral });
       return;
     }
 
